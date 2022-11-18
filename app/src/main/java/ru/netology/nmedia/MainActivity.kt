@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
                 likeButton.setImageResource(R.drawable.ic_baseline_favorite_24)
             }
             likesCount.text = numberToShortFormat(post.like)
-            shareCount.text = "${post.share}"
-            viewCount.text = "${post.view}"
+            shareCount.text = numberToShortFormat(post.share)
+            viewCount.text = numberToShortFormat(post.view)
 
             likeButton.setOnClickListener {
                 post.likedByMe = !post.likedByMe
