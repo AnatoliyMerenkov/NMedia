@@ -7,100 +7,104 @@ import ru.netology.nmedia.Post
 class PostRepositoryInMemoryImpl : PostRepository {
     private var nextId = 1L
     private var posts = listOf(
+
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
+
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "XXXXXXXXXXXXXXXXXX",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
+
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "YYYYYYYYYYYYYYYYYYY",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
+
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "ZZZZZZZZZZZZZZZZZZZZ",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
 
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "DDDDDDDDDDDDDDDDDDDDDDDDD",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
 
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
 
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
 
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
             postContent = "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
-            publishDate = "21 мая в 18:36",
-            likes = 5099,
             likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            publishDate = "21 мая в 18:36",
+            likes = 0,
+            shared = 0,
+            viewed = 0
         ),
 
         Post(
             id = nextId++,
             authorName = "Нетология. Университет интернет-профессий будущего",
+            likedByMe = false,
             postContent = "KKKKKKKKKKKKKKKKKKKKKKKKKK",
             publishDate = "21 мая в 18:36",
-            likes = 5099,
-            likedByMe = false,
-            shared = 9999,
-            viewed = 1_999_999
+            likes = 0,
+            shared = 0,
+            viewed = 0
         )
     )
     private val data = MutableLiveData(posts)
@@ -108,7 +112,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
     override fun getAll(): LiveData<List<Post>> = data
     override fun likeById(id: Long) {
         posts = posts.map {
-            if (it.id != id) it else it.copy(likedByMe = !it.likedByMe)
+            if (it.id != id) it else it.copy(likedByMe = !it.likedByMe, likes = it.likes + 1)
         }
         data.value = posts
     }
@@ -118,7 +122,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
             if (it.id != id) it else it.copy(shared = it.shared + 1)
         }
         data.value = posts
-
     }
 
     override fun viewById(id: Long) {
@@ -140,15 +143,14 @@ class PostRepositoryInMemoryImpl : PostRepository {
                     id = nextId++,
                     authorName = "Нетология",
                     likedByMe = false,
-                    publishDate = "Now"
+                    publishDate = "Только что"
                 )
             ) + posts
         } else {
-            posts = posts.map {
+            posts.map {
                 if (it.id != post.id) it else it.copy(postContent = post.postContent)
             }
-            data.value = posts
-            return
         }
+        data.value = posts
     }
 }
