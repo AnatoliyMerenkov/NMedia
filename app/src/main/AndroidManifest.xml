@@ -15,7 +15,9 @@
 
         <activity
             android:name=".NewPostActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -50,5 +52,12 @@
                 android:value="" />
         </activity>
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="*" />
+        </intent>
+    </queries>
 
 </manifest>
